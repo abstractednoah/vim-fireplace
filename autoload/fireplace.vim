@@ -6,6 +6,10 @@ if exists('g:autoloaded_fireplace')
 endif
 let g:autoloaded_fireplace = 1
 
+if !exists('g:fireplace_eval_opts')
+    let g:fireplace_eval_opts = {}
+endif
+
 " Section: Utilities
 
 function! s:map(mode, lhs, rhs, ...) abort
@@ -1295,7 +1299,7 @@ function! s:eval_callback(state, delegates, message) abort
 endfunction
 
 function! fireplace#eval(...) abort
-  let opts = {}
+  let opts = copy(g:fireplace_eval_opts)
   let state = {'echo': v:false}
   let callbacks = []
   for l:Arg in a:000
